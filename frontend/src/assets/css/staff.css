@@ -1,0 +1,158 @@
+/* ==========================================
+   Staff Flip Card - Lightweight 3D Effect
+   ========================================== */
+
+.staff-flipcard {
+  background-color: transparent;
+  width: 100%;
+  height: 400px; /* Uniform Fixed Layout */
+  perspective: 1000px; /* 3D perspective */
+  display: block;
+}
+
+.staff-flipcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.staff-flipcard.is-flipped .staff-flipcard-inner {
+  transform: rotateY(180deg);
+}
+
+/* Essential Absolute Overlap */
+.card-front,
+.card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden; /* Safari support */
+  backface-visibility: hidden;
+  border: 1px solid var(--dash-border, #e5e7eb);
+  border-radius: var(--radius-xl, 1rem);
+  background-color: var(--bg-card, #ffffff);
+  box-shadow: var(--shadow-md, 0 4px 6px -1px rgba(0, 0, 0, 0.1));
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  padding: 1.5rem;
+}
+
+/* --- Front Side Styling --- */
+
+.card-front img,
+.staff-image-placeholder {
+  width: 100%;
+  height: 200px; /* Fixed proportional height */
+  object-fit: cover;
+  background-color: var(--color-primary-light, #e0f2fe);
+}
+
+.staff-image-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.staff-flipcard-avatar {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--color-primary, #0ea5e9);
+}
+
+.staff-flipcard-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.staff-flipcard-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main, #111827);
+}
+
+.staff-flipcard-role {
+  margin: 0.25rem 0 1rem;
+  font-size: 0.875rem;
+  color: var(--text-muted, #6b7280);
+  font-weight: 500;
+}
+
+/* --- Back Side Styling --- */
+
+.card-back-content {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.staff-flipcard-back-title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-main, #111827);
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--dash-border, #e5e7eb);
+}
+
+.staff-flipcard-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.detail-block {
+  background: var(--dash-hover, #f9fafb);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md, 0.5rem);
+}
+
+.detail-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.detail-key {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted, #6b7280);
+}
+
+.detail-value {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-main, #111827);
+  text-align: right;
+}
+
+/* Shared Utilities */
+.staff-flipcard-cta {
+  width: 100%;
+  margin-top: auto;
+}

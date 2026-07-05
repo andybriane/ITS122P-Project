@@ -1,0 +1,14 @@
+# Frontend (React/Vite)
+frontend/node_modules/
+frontend/dist/
+
+# Backend (PHP)
+backend/uploads/
+backend/vendor/
+backend/.env
+
+# General
+.env
+*.log
+.DS_Store
+Thumbs.db
