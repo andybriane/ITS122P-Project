@@ -4,12 +4,13 @@
  * Pineda Dental Clinic — Plain PHP Backend
  *
  * POST /api/emails.php -> receives an email payload from the frontend
- * and sends it. For now, logs it (see TODO) so you can verify the whole
- * flow works before wiring in a real provider.
+ * and hands it off to the Mailer helper (utils/Mailer.php), which
+ * handles all the PHPMailer / Gmail SMTP details.
  */
 
 require_once '../config/cors.php';
 require_once '../config/database.php';
+require_once '../utils/Mailer.php';
 
 header('Content-Type: application/json');
 
@@ -21,23 +22,29 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 $input = json_decode(file_get_contents('php://input'), true);
 
-$to = $input['to'] ?? '';
-$subject = $input['subject'] ?? '';
+$to = trim($input['to'] ?? '');
+$subject = trim($input['subject'] ?? '');
 $text = $input['text'] ?? '';
 $html = $input['html'] ?? '';
 $templateType = $input['templateType'] ?? '';
 
 if (empty($to) || empty($subject) || empty($html)) {
+    http_response_code(400);
     echo json_encode(['success' => false, 'message' => 'Missing required fields']);
     exit;
 }
 
-// TODO: Replace with real email provider (SendGrid/PHPMailer/Gmail SMTP) — Step coming later
-error_log("EMAIL [$templateType] TO: $to | SUBJECT: $subject");
+$result = send_email($to, $subject, $html, $text);
+
+if (!$result['success']) {
+    http_response_code(500);
+    echo json_encode($result);
+    exit;
+}
 
 echo json_encode([
     'success' => true,
-    'message' => 'Email queued',
+    'message' => 'Email sent',
     'to' => $to,
     'templateType' => $templateType,
 ]);
