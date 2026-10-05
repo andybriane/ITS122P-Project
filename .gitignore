@@ -1,14 +1,24 @@
 # Frontend (React/Vite)
 frontend/node_modules/
 frontend/dist/
+frontend/.env
+frontend/.env.*
+npm-debug.log*
 
 # Backend (PHP)
 backend/uploads/
 backend/vendor/
 backend/.env
+backend/.env.*
 
 # General
 .env
+.env.*
 *.log
 .DS_Store
 Thumbs.db
+desktop.ini
+
+# IDE / Editor Files
+.vscode/
+.idea/
